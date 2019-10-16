@@ -77,6 +77,32 @@ export default {
       axios.patch('/patch', data).then(res => {
         console.log(res)
       })
+
+      // delete请求
+      axios.delete('/delete', { // 放在url上
+        params: {
+          id: 123
+        }
+      }).then(res => {
+        console.log(res)
+      })
+
+      axios.delete('/delete', { // 放在请求体中
+        data: {
+          id: 123
+        }
+      }).then(res => {
+        console.log(res)
+      })
+
+      axios({
+        methods: 'delete',
+        url: '/delete',
+        params: {}, // 参数放在URL上的
+        data: {} // 参数放在请求体中的 （选其中一种）
+      }).then(res => {
+        console.log(res)
+      })
     }
   }
 }

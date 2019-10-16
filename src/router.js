@@ -22,6 +22,21 @@ export default new Router({
     path: '/2-2',
     name: 'axios2-2',
     component: () => import('./views/2-2.vue')
+  },
+  {
+    path: '/2-5',
+    name: 'axios2-5',
+    component: () => import('./views/2-5.vue')
+  },
+  {
+    path: '/3-1',
+    name: 'axios3-1',
+    component: () => import('./views/3-1.vue')
+  },
+  {
+    path: '/3-2',
+    name: 'axios3-2',
+    component: () => import('./views/3-2.vue')
   }
   ]
 })
