@@ -47,6 +47,32 @@ export default {
     instance.get('/data.json', {
       timeout: 5 * 1000
     })
+
+    // 实际开发
+    // 有两种请求接口：
+    // http://localhost:9090
+    // http://localhost:9091
+
+    let instance1 = axios.create({
+      baseURL: 'http://localhost:9090',
+      timeout: 2 * 1000
+    })
+    let instance2 = axios.create({
+      baseURL: 'http://localhost:9091',
+      timeout: 5 * 1000
+    })
+
+    // 用到baseURL,timeout,url,method,params
+    instance1.get('/getList', {
+      params: {
+        id: 123456
+      }
+    }).then(res => console.log(res))
+
+    // 用到baseURL,timeout,url,method,timeout
+    instance2.get('/orderList', {
+      timeout: 6 * 1000
+    }).then(res => console.log(res))
   },
   mounted () {},
   computed: {},
