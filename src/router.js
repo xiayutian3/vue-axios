@@ -37,6 +37,11 @@ export default new Router({
     path: '/3-2',
     name: 'axios3-2',
     component: () => import('./views/3-2.vue')
+  },
+  {
+    path: '/contactlist',
+    name: 'contactList',
+    component: () => import('./views/ContactList.vue')
   }
   ]
 })

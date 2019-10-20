@@ -4,7 +4,7 @@
   </div>
 </template>
 <script>
-import axios from 'axios'
+// import axios from 'axios'
 export default {
   name: 'about',
   data () {
@@ -17,10 +17,10 @@ export default {
   },
   methods: {
     getData () {
-      axios.get('data.json').then(res => {
-        console.log(res.data)
-        // this.msg = res.data
-      })
+      // axios.get('data.json').then(res => {
+      //   console.log(res.data)
+      // this.msg = res.data
+      // })
     }
   }
 }
