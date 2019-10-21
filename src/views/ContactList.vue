@@ -6,8 +6,16 @@
       :list="list"
       @add="onAdd"
       @edit="onEdit"
-      @select="onSelect"
     />
+    <!-- 联系人编辑 -->
+    <van-popup v-model="showEdit" position="bottom">
+      <van-contact-edit
+        :contact-info="editingContact"
+        :is-edit="isEdit"
+        @save="onSave"
+        @delete="onDelete"
+      />
+    </van-popup>
   </div>
 </template>
 
@@ -20,7 +28,10 @@ export default {
   data () {
     return {
       chosenContactId: null,
-      list: []
+      list: [],
+      showEdit: false, // 弹框的显示
+      editingContact: {}, // 正在编辑的联系人得我信息
+      isEdit: false // false 是新建，true 是编辑
     }
   },
   async created () {
@@ -60,14 +71,42 @@ export default {
   mounted () {},
   computed: {},
   methods: {
-    onAdd () {
-
+    async onAdd () {
+      this.showEdit = true
+      this.isEdit = false
+      this.editingContact = {}
     },
-    onEdit () {
-
+    async onEdit (item) {
+      this.showEdit = true
+      this.isEdit = true
+      this.editingContact = item
     },
-    onSelect () {
-
+    async onSave (content) {
+      let id = content._id
+      if (this.isEdit) {
+        console.log(content)
+        let { status } = await updateUser(id, content)
+        if (status === 200) {
+          this.$toast.success('更新成功')
+          this.list = this.list.map(item => item._id === content._id ? content : item)
+        }
+      } else {
+        let { status, data } = await createUser(content)
+        if (status === 200) {
+          this.list.push(data)
+        }
+      }
+      this.showEdit = false
+    },
+    async onDelete (content) {
+      let { _id } = content
+      let index = this.list.findIndex(item => item.name === content.name)
+      let { status } = await deleteUser(_id)
+      if (status === 204) {
+        this.$toast.success('删除成功')
+        this.list.splice(index, 1)
+        this.showEdit = false
+      }
     }
   },
   // components: {
